@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List, Optional
 
 class BookBase(BaseModel):
     title: str
@@ -10,8 +11,8 @@ class BookCreate(BookBase):
 
 class Book(BookBase):
     id: int
-    is_borrowed: int
-    borrower_id: int | None = None
+    is_borrowed: bool
+    borrower_id: Optional[int] = None
 
     class Config:
         from_attributes = True
@@ -25,6 +26,7 @@ class ReaderCreate(ReaderBase):
 
 class Reader(ReaderBase):
     id: int
+    borrowed_books: List[Book] = []
 
     class Config:
         from_attributes = True
