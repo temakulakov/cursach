@@ -17,7 +17,10 @@ def create_book(db: Session, book: schemas.BookCreate):
 
 # Получение книги по ID
 def get_book(db: Session, book_id: int):
-    return db.query(models.Book).filter(models.Book.id == book_id).first()
+    book = db.query(models.Book).filter(models.Book.id == book_id).first()
+    if not book:
+        raise HTTPException(status_code=404, detail="Book not found")
+    return book
 
 # Получение всех книг
 def get_books(db: Session, skip: int = 0, limit: int = 10):
@@ -59,7 +62,10 @@ def create_reader(db: Session, reader: schemas.ReaderCreate):
 
 # Получение читателя по ID
 def get_reader(db: Session, reader_id: int):
-    return db.query(models.Reader).filter(models.Reader.reader_id == reader_id).first()
+    reader = db.query(models.Reader).filter(models.Reader.reader_id == reader_id).first()
+    if not reader:
+        raise HTTPException(status_code=404, detail="Reader not found")
+    return reader
 
 # Получение всех читателей
 def get_readers(db: Session, skip: int = 0, limit: int = 10):

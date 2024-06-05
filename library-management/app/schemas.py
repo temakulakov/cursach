@@ -30,3 +30,6 @@ class Reader(ReaderBase):
 
     class Config:
         from_attributes = True
+
+class BorrowRequest(BaseModel):
+    borrower_id: int
